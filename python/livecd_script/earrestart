@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo " Cleaning up folders, please wait..."
+
+rm -f /mnt/local/temp/linux/*
+
+cd /mnt/local/temp/linux
+
+cp /usr/local/bin/compname.txt .
+cp /usr/local/bin/process.py .
+
+echo " "
+echo " Ready to restart analysis. Initiating the analysis script..."
+echo " "
+echo " To stop, press Ctrl-c"
+
+./process.py

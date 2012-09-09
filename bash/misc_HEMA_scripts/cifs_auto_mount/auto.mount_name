@@ -1,0 +1,1 @@
+mount_name -fstype=cifs,rw,iocharset=utf8,nounix,file_mode=0777,dir_mode=0777,credentials=/etc/auto.machinename ://IP/SHARE/

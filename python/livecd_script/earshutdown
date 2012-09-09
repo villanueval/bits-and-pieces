@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo " "
+echo " Shutting down... please wait..."
+echo " "
+
+sudo rm -rf /mnt/local/temp/linux
+sudo umount /mnt/local
+
+sudo shutdown -P now

@@ -1,0 +1,49 @@
+#!/bin/bash
+
+echo " "
+echo " Creating necessary folders... please wait..."
+#mount local hard drive
+sudo mkdir /mnt/local
+sleep 8
+
+
+#Next line needs to be 
+# custom for each computer!!!
+sudo mount -t auto /dev/sdb3 /mnt/local
+
+localstatus=$?
+#localstatus has the exit status of the disk mount, 0 it was ok
+	if [ "$localstatus" -ne "0" ]
+	then
+		#test not ok, then delete flac and store filename in log
+		echo " "
+		echo " ERROR: The local drive could not be mounted. "
+		echo " "
+		echo " I can't continue. Please take note of the error above and shutdown."
+		echo " "
+		echo " Shutdown by typing:  earshutdown"
+		echo "   and press [ENTER]"
+		echo " "		
+		exit 1
+	fi
+
+
+
+#Set permissions
+echo " "
+echo " Setting permissions..."
+sudo chown custom /mnt/local
+sleep 5
+mkdir -p /mnt/local/temp/linux
+
+cd /mnt/local/temp/linux
+
+cp /usr/local/bin/compname.txt .
+cp /usr/local/bin/process.py .
+
+echo " "
+echo " Ready to proceed. Initiating the analysis script..."
+echo " "
+echo " To stop, press Ctrl-c"
+
+./process.py

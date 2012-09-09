@@ -1,0 +1,12 @@
+#add to /etc/rc.local
+
+cat /etc/issue.old > /etc/issue
+#from http://serverfault.com/questions/209599/how-to-setup-etc-issues-to-show-the-ip-address-for-eth0
+ifconfig eth0 | awk '/inet addr/ {print $2}' | cut -f2 -d: > /etc/localip
+echo -n "Pumilio Demo machine \n Pumilio version: " >> /etc/issue
+cat /var/www/include/version.txt >> /etc/issue
+echo -n " Host IP: " >> /etc/issue
+cat /etc/localip >> /etc/issue
+echo " " >> /etc/issue
+
+exit 0
