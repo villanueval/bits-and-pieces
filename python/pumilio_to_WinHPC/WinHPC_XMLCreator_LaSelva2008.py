@@ -9,6 +9,13 @@
 # Edited by Luis J. Villanueva to get the data from Pumilio
 # ---------------------------------------------------------------------------
 
+
+
+##########################################################
+# VARIABLES
+##########################################################
+
+
 #Pumilio database settings
 db_hostname=''
 db_database=''
@@ -23,11 +30,19 @@ ClusterUsername=''
 
 RArguments='\\\\server\\WinHPC\\script.R ' + str(i) + ' ' + '\\\\pumilio_server\\pumilio_dir\\sounds\\sounds\\' + str(ColID) + '\\' + OriginalFilename + '"'
 
-# Import arcpy module
+# Import modules
 import sys, os, MySQLdb
 
+#Call the script giving two arguments: from and to SoundID, useful for large archives
 fromID=sys.argv[1]
 toID=sys.argv[2]
+
+
+
+##########################################################
+# FUNCTIONS
+##########################################################
+
 
 #Get a file to process from MySQL
 def getfile(SoundID):
@@ -59,6 +74,12 @@ def checkfiles(fromID,toID):
 	cursor.close ()
 	con.close ()
 	return row1
+
+
+
+##########################################################
+# RUN
+##########################################################
 
 checkfiles = checkfiles(fromID,toID)[0]
 
