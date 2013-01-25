@@ -1,0 +1,9 @@
+#From http://www.webreference.com/programming/Apache-Site-Down-Notice/index.html
+
+Options +FollowSymlinks
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !/maintenance.html$
+#The next is to only allow a single IP
+#RewriteCond %{REMOTE_HOST} !^117\.201\.1\.154
+RewriteRule $ /maintenance.html [R=302,L] 
+
