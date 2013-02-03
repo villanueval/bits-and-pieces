@@ -1,5 +1,5 @@
 #From http://www.webreference.com/programming/Apache-Site-Down-Notice/index.html
-
+# set this in .htaccess
 Options +FollowSymlinks
 RewriteEngine on
 RewriteCond %{REQUEST_URI} !/maintenance.html$

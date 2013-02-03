@@ -3,11 +3,9 @@
 """
 Script to export the bookmarks form delicious export file to 2 csv files.
   This eases importing them to a database.
-  Edit the userid below with your username.
-  The script exports the data to two files: bookmarks.csv and tags.csv
 """
 
-userid=''
+userid='ljvillanueva'
 
 #########################################################################
 # EXECUTE THE SCRIPT							#
@@ -68,7 +66,7 @@ f1.write("\"bookmark_id\",\"tag\"\n")
 for bookmark in delicious7:
 	bookmark = bookmark.replace( "\n", "")
 	bookmark = bookmark.split("|")
-	f.write(str(bookmark[0]) + "," + bookmark[1] + "," + bookmark[5] + ',userid'  + ",0," + bookmark[2] + "," + bookmark[2] + ",0\n")
+	f.write(str(bookmark[0]) + "," + bookmark[1] + "," + bookmark[5] + ',' + userid + ",0," + bookmark[2] + "," + bookmark[2] + ",0\n")
 	tags = bookmark[4].split(",")
 	for tag in tags:
 		tag = tag.replace( "\"", "")
