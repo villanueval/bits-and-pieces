@@ -1,4 +1,7 @@
 #!/usr/bin/python
+#This is overkill, can just do
+#  flac -d *.flac
+# but this is just an example on how it can be done.
 
 # Import modules
 import commands
