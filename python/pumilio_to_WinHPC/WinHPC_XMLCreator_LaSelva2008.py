@@ -53,7 +53,7 @@ def getfile(SoundID):
 		print "\n Could not connect to the database! leaving the program..."
 		sys.exit (1)
 	cursor = con.cursor()
-	query = "SELECT ColID, DirID, OriginalFilename FROM Sounds WHERE SoundID = " + str(SoundID)
+	query = "SELECT ColID, DirID, OriginalFilename FROM Sounds WHERE SoundID = " + str(SoundID) + " AND SoundStatus=0"
 	cursor.execute (query)
 	row = cursor.fetchone ()
 	cursor.close ()
@@ -68,7 +68,7 @@ def checkfiles(fromID,toID):
 		print "\n Could not connect to the database! leaving the program..."
 		sys.exit (1)
 	cursor = con.cursor()
-	query = "SELECT COUNT(*) FROM Sounds WHERE SoundID >= " + str(fromID) + " AND SoundID <= " + str(toID)
+	query = "SELECT COUNT(*) FROM Sounds WHERE SoundID >= " + str(fromID) + " AND SoundID <= " + str(toID) + " AND SoundStatus=0"
 	cursor.execute (query)
 	row1 = cursor.fetchone ()
 	cursor.close ()
