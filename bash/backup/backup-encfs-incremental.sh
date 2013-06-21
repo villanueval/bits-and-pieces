@@ -1,5 +1,14 @@
 #/bin/bash
 
+#Script to backup a folder in increments to an encrypted folder.
+#The increments are stored with the date and time. Files that
+# have not been changed are simply hard-linked to save time and space.
+
+#For this to work, you need to have encfs installed.
+# Also, when creating the encrypted folder, on the question:
+#  "Enable filename initialization vector chaining?"
+# you must select NO. Otherwise, hard-linking won't work.
+
 #first, test that encfs is installed
 #from http://stackoverflow.com/a/6471205
 hash encfs &> /dev/null
