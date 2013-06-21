@@ -17,7 +17,7 @@ DIRECTORY=""
 #Where encfs will store the files, i.e. ".private"
 ENCFS_DIR=""
 
-encfs ENCFS_DIR $DIRECTORY
+encfs $ENCFS_DIR $DIRECTORY
 
 if [ $? -eq 1 ]; then
 	echo ""
