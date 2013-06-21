@@ -2,7 +2,7 @@
 
 #first, test that encfs is installed
 #from http://stackoverflow.com/a/6471205
-hash encfs1 &> /dev/null
+hash encfs &> /dev/null
 if [ $? -eq 1 ]; then
 	echo ""
 	echo " Error: encfs is not installed, leaving script"
