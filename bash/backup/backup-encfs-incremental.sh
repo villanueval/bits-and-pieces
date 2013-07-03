@@ -36,6 +36,7 @@ if [ $? -eq 1 ]; then
 fi
 
 #alt way when looking for a particular folder inside the encrypted folder
+#uncomment this line and add "fi" at the last line of the script
 #if [ -d "/dir" ]; then
 
 	date=`date "+%Y-%m-%d_%H%M%S"`
@@ -96,4 +97,3 @@ fi
 	echo "   Backup done!"
 	echo ""
 
-fi
