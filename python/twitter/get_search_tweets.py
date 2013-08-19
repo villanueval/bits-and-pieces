@@ -60,7 +60,7 @@ for this_search in searchterms:
 	
 			#statuses[1].text
 			#statuses[1].id
-			thistext = statuses[i].text
+			thistext = statuses[i].text.replace('\n', ' ')
 			thisid = str(statuses[i].id)
 			created_at = statuses[i].created_at
 			created_at_s = str(statuses[i].created_at_in_seconds)
@@ -75,8 +75,9 @@ for this_search in searchterms:
 			user_name = statuses[i].user.name
 			user_id = str(statuses[i].user.id)
 			user_screenname = statuses[i].user.screen_name
-		
-			statusFile.write(thisid + '\t' + created_at + '\t' + created_at_s + '\t' + in_reply + '\t' + location + '\t' + thistext + '\t' + user_name + '\t' + user_id + '\t' + user_screenname + '\n')
+			retweets = str(statuses[i].retweet_count)
+			
+			statusFile.write(thisid + '\t' + created_at + '\t' + created_at_s + '\t' + in_reply + '\t' + location + '\t' + thistext + '\t' + user_name + '\t' + user_id + '\t' + user_screenname + '\t' + retweets + '\n')
 			 
 
 			if maxst_id > statuses[i].id:

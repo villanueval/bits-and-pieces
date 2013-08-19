@@ -58,7 +58,7 @@ for thisuser in users:
 	
 			#statuses[1].text
 			#statuses[1].id
-			thistext = statuses[i].text
+			thistext = statuses[i].text.replace('\n', ' ')
 			thisid = str(statuses[i].id)
 			created_at = statuses[i].created_at
 			created_at_s = str(statuses[i].created_at_in_seconds)
@@ -70,8 +70,9 @@ for thisuser in users:
 				location = ""
 			else:
 				location = statuses[i].location
-		
-			statusFile.write(thisid + '\t' + created_at + '\t' + created_at_s + '\t' + in_reply + '\t' + location + '\t' + thistext + '\n')
+			retweets = str(statuses[i].retweet_count)
+			
+			statusFile.write(thisid + '\t' + created_at + '\t' + created_at_s + '\t' + in_reply + '\t' + location + '\t' + thistext + '\t' + retweets + '\n')
 
 			if maxst_id > statuses[i].id:
 				maxst_id = statuses[i].id
