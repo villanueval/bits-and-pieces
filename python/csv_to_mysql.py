@@ -42,7 +42,7 @@ def insert(SoundID, adi_left, shannon_left, db_value):
 		print "Error %d: %s" % (e.args[0], e.args[1])
 		sys.exit (1)
 	cursor = con.cursor()
-	query = "INSERT INTO Indices (SoundID, adi_left, shannon_left, db_value) \
+	query = "REPLACE INTO Indices (SoundID, adi_left, shannon_left, db_value) \
          VALUES (" + \
 	`SoundID` + ', ' + `adi_left` + ', ' + `shannon_left` + ', ' + `db_value` + ')'
 	#print "Query: " + query + "\n"
