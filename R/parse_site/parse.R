@@ -6,7 +6,7 @@ library(RCurl)
 states <- read.csv("states.csv")
 
 #where to save the data
-writefile <- "results.csv"
+mainwritefile <- "results.csv"
 
 for(i in 1:dim(states)[1]){
 #for(i in 1:2){
@@ -16,7 +16,8 @@ for(i in 1:dim(states)[1]){
   #Get the list of available HUCs for this state
   thisindex = htmlParse(getURL(paste("http://nas.er.usgs.gov/queries/huc8.aspx?state=", thisstate, sep="")))
 
-  #dir.create(path=thisstate)
+  #Create dir for each state
+  dir.create(path=thisstate)
   
   #Parse the area tags that contain the HUC code and names
   theseareas <- xpathApply(thisindex, "//area[@shape = 'polygon']")
@@ -46,18 +47,20 @@ for(i in 1:dim(states)[1]){
       keeps <- c("Group", "Family", "Scientific Name", "Common Name", "Native Habitat", "Exotic / Native Transplant", "State", "HUC", "Name")
       tabletowrite <- tabletowrite[keeps]
       
-      #writefile <- paste(thisstate, "/", thisstate, "_", realHUC[h,1], "_", realHUC[h,2], ".csv", sep="")
+      writefile <- paste(thisstate, "/", thisstate, "_", realHUC[h,1], "_", realHUC[h,2], ".csv", sep="")
       
       #If result file doesn't exist, create and add column names on first row
-      if (!file.exists(writefile)){
-        write.table(tabletowrite, file=writefile, sep=",", row.names=FALSE, col.names=TRUE, append=TRUE)
+      if (!file.exists(mainwritefile)){
+        write.table(tabletowrite, file=mainwritefile, sep=",", row.names=FALSE, col.names=TRUE, append=TRUE)
       }else{
         #Just append data, don't add column names
-        write.table(tabletowrite, file=writefile, sep=",", row.names=FALSE, col.names=FALSE, append=TRUE)
+        write.table(tabletowrite, file=mainwritefile, sep=",", row.names=FALSE, col.names=FALSE, append=TRUE)
         }
+      write.table(tabletowrite, file=writefile, sep=",", row.names=FALSE, col.names=TRUE, append=FALSE)
       }
   }
-  #convert to windows-type text file
-  system(paste("todos ", writefile, sep=""))
+  #Uncomment these two lines to convert the files to windows-type text file
+  system(paste("todos ", mainwritefile, sep=""))
+  system(paste("todos ", thisstate, "\\/*", sep=""))
 }
 
