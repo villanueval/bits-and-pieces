@@ -11,7 +11,7 @@ rm -r 1/sounds
 for site in site1 site2 site3
 do
   cp -rf 1/* /var/www/$site/
-  wget -O /dev/null http://server/$site/upgrade
+  wget -O /dev/null http://localhost/$site/upgrade
 done
 
 rm -r 1
