@@ -6,10 +6,10 @@
 for gitarchive in *; do
    if [ -d $gitarchive ]; then
       cd $gitarchive
+      git pull
       git add -A
       git commit -a
       git push origin master
-      git pull
       cd ..
    fi
 done
