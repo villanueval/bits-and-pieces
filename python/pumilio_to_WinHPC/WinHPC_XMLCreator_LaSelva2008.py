@@ -6,10 +6,10 @@
 # Description: 
 # This script clips all rasters in a folder based on a polygon feature, and exports the slipped rasters to ASCII files.
 # Written by Jarrod Doucette, FORS 208, 195 Marsteller Ave. Purdue University
-# Edited by Luis J. Villanueva to get the data from Pumilio
+# Edited by Luis J. Villanueva to get the data from Pumilio (http://ljvillanueva.github.io/pumilio)
 # ---------------------------------------------------------------------------
 
-
+#New version needed to specify max cores in the job, while keeping tasks at 1
 
 ##########################################################
 # VARIABLES
@@ -29,6 +29,9 @@ NameToUse=''
 ClusterUsername=''
 
 RArguments='\\\\server\\WinHPC\\script.R ' + str(i) + ' ' + '\\\\pumilio_server\\pumilio_dir\\sounds\\sounds\\' + str(ColID) + '\\' + OriginalFilename + '"'
+
+#number of max cores to use
+MaxCores=24
 
 # Import modules
 import sys, os, MySQLdb
@@ -96,7 +99,7 @@ else:
 	#Add text that is the same for entire state
 
 	xmlFile.write('<?xml version="1.0" encoding="utf-8"?>')
-	xmlFile.write('<Job Version="3.000" Id="' + NameToUse + "_" + str(fromID) + '" Name="' + NameToUse + "_" + str(fromID) + '_' + str(toID) + '" UnitType="Core" ErrorCode="0" ErrorParams="" State="Configuring" PreviousState="Configuring" JobType="Batch" Priority="Lowest" IsBackfill="false" NextTaskNiceID="2" HasGrown="false" HasShrunk="false" OrderBy="" RequestCancel="None" RequeueCount="0" AutoRequeueCount="0" FailureReason="None" PendingReason="None" AutoCalculateMax="true" AutoCalculateMin="true" ParentJobId="0" ChildJobId="0" NumberOfCalls="0" NumberOfOutstandingCalls="0" CallDuration="0" CallsPerSecond="0" ProjectId="2" JobTemplateId="1" OwnerId="2" ClientSourceId="2" Project="LS2011" JobTemplate="Default" DefaultTaskGroupId="53" Owner="' + ClusterUsername + '" ClientSource="HpcJobManager" xmlns="http://schemas.microsoft.com/HPCS2008R2/scheduler/">\n')
+	xmlFile.write('<Job Version="3.000" Id="' + NameToUse + str(fromID) + '" Name="' + NameToUse + "_" + str(fromID) + '_' + str(toID) + '" UnitType="Core" ErrorCode="0" ErrorParams="" State="Configuring" PreviousState="Configuring" JobType="Batch" Priority="Lowest" IsBackfill="false" NextTaskNiceID="2" HasGrown="false" HasShrunk="false" OrderBy="" RequestCancel="None" RequeueCount="0" AutoRequeueCount="0" FailureReason="None" PendingReason="None" AutoCalculateMax="false" AutoCalculateMin="false" MinCores="1" MaxCores="' + str(MaxCores) + '" ParentJobId="0" ChildJobId="0" NumberOfCalls="0" NumberOfOutstandingCalls="0" CallDuration="0" CallsPerSecond="0" ProjectId="2" JobTemplateId="1" OwnerId="2" ClientSourceId="2" Project="' + Project + '" JobTemplate="Default" DefaultTaskGroupId="53" Owner="' + ClusterUsername + '"  ClientSource="HpcJobManager" xmlns="http://schemas.microsoft.com/HPCS2008R2/scheduler/">\n')
 	xmlFile.write('    <Dependencies/>\n')
 	xmlFile.write('    <Tasks>\n')
 
@@ -110,7 +113,7 @@ else:
 		elif len(row)==3:
 			ColID, DirID, OriginalFilename = row
 	
-			xmlFile.write('        <Task Version="3.000" Id="' + NameToUse + "_" + str(i) + '" ErrorCode="0" ErrorParams="" State="Configuring" PreviousState="Configuring" ParentJobId="51" RequestCancel="None" Closed="false" RequeueCount="0" AutoRequeueCount="0" FailureReason="None" PendingReason="None" InstanceId="0" RecordId="30" Name="' + NameToUse + "_" + str(i) + '" NiceId="1" CommandLine="&quot;C:\\Program Files\\R\\R-2.14.1\\bin\\x64\\Rscript.exe&quot; --vanilla ' + RArguments + ' MinCores="1" MaxCores="1" MinNodes="1" MaxNodes="1"  HasCustomProps="false" IsParametric="false" GroupId="53" ParentJobState="Configuring" UnitType="Core" ParametricRunningCount="0" ParametricCanceledCount="0" ParametricFailedCount="0" ParametricQueuedCount="0" />\n')
+			xmlFile.write('        <Task Version="3.000" Id="' + NameToUse + "_" + str(i) + '" ErrorCode="0" ErrorParams="" State="Configuring" PreviousState="Configuring" ParentJobId="51" RequestCancel="None" Closed="false" RequeueCount="0" AutoRequeueCount="0" FailureReason="None" PendingReason="None" InstanceId="0" RecordId="30" Name="' + Project + '_'+ str(i) + '" NiceId="1" CommandLine="&quot;C:\\Program Files\\R\\R-2.14.1\\bin\\x64\\Rscript.exe&quot; --vanilla ' + script_to_use + ' ' + str(i) + ' ' + '\\\\share\\sounds\\sounds\\' + str(ColID) + '\\' + str(DirID) + '\\' + OriginalFilename + '" MinCores="1" MaxCores="1" HasCustomProps="false" IsParametric="false" GroupId="53" ParentJobState="Configuring" UnitType="Core" ParametricRunningCount="0" ParametricCanceledCount="0" ParametricFailedCount="0" ParametricQueuedCount="0" />\n')
 		            
 	#Close MySQL
 
